@@ -3,6 +3,37 @@ const gate = document.getElementById('passwordScreen');
 const passwordInput = document.getElementById('sitePassword');
 const menu = document.getElementById('menuScreen');
 
+const mobilePolish = document.createElement('style');
+mobilePolish.textContent = `
+button,a,.accordion-toggle,.project-toggle,.menu-link{-webkit-tap-highlight-color:transparent}
+button,.accordion-toggle,.project-toggle{-webkit-appearance:none;appearance:none}
+button:focus:not(:focus-visible),a:focus:not(:focus-visible){outline:none}
+.gate-center{left:50vw!important;right:auto!important;top:50dvh!important;transform:translate(-50%,-50%)!important;margin:0!important;width:min(88vw,560px)!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important}
+.gate-center>.eyebrow,.gate-hint{width:100%!important;text-align:center!important}
+.password-field{width:min(78vw,430px)!important;margin-left:auto!important;margin-right:auto!important}
+.password-field input{width:100%!important;text-align:center!important;box-sizing:border-box!important}
+.mobile-split-title span{display:inline}
+@media(max-width:800px){
+  .mobile-split-title{font-size:clamp(3.7rem,17vw,5.8rem)!important;line-height:.78!important;letter-spacing:-.07em!important}
+  .mobile-split-title span{display:block}
+  .gate-center{width:86vw!important;left:50vw!important;top:50dvh!important}
+  .gate-center>.eyebrow{font-size:.68rem!important}
+  .gate-hint{font-size:.58rem!important;letter-spacing:.14em!important}
+  .accordion-toggle,.project-toggle{outline:none!important;box-shadow:none!important}
+  .accordion-toggle:active,.project-toggle:active{background:transparent!important}
+}
+`;
+document.head.appendChild(mobilePolish);
+
+const gateHint = document.querySelector('.gate-hint');
+if (gateHint) gateHint.textContent = 'DATE OF BIRTH / NO ENTER';
+
+const inspirationTitle = document.querySelector('.inspiration-head h1');
+if (inspirationTitle && inspirationTitle.textContent.trim() === 'ВДОХНОВЕНИЕ') {
+  inspirationTitle.innerHTML = '<span>ВДОХ</span><span>НОВЕНИЕ</span>';
+  inspirationTitle.classList.add('mobile-split-title');
+}
+
 function showMenu({ immediate = false } = {}) {
   if (!menu) return;
   intro?.classList.add('is-skipped');
@@ -41,7 +72,7 @@ if (menu) {
   const skipGateOnce = sessionStorage.getItem('skipGateOnce') === '1';
   if (skipGateOnce) {
     sessionStorage.removeItem('skipGateOnce');
-    showMenu({ immediate: true });
+    showMenu({ immediate: false });
   } else {
     window.setTimeout(showPassword, 2000);
   }
@@ -180,7 +211,7 @@ document.querySelectorAll('a').forEach((link) => {
     }
 
     document.body.classList.add('page-is-leaving');
-    window.setTimeout(() => { window.location.href = href; }, 320);
+    window.setTimeout(() => { window.location.href = href; }, 420);
   });
 });
 
