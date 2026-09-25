@@ -2,95 +2,44 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fbfaf7">
-  <meta name="description" content="TheXilliX — персональное пространство Влада. Проекты, мысли, вдохновение и то, что происходит сейчас.">
+  <meta name="description" content="TheXilliX — персональное пространство Влада.">
   <title>TheXilliX — Кто он?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
-  <style>
-    /* Fine-tune the intro lockup: keep the original scale, remove collisions. */
-    .intro h1 {
-      line-height: .76;
-      letter-spacing: -.045em;
-    }
-    .intro h1 span:first-child {
-      letter-spacing: -.025em;
-    }
-    .intro h1 span:last-child {
-      margin-top: .10em;
-      letter-spacing: -.045em;
-    }
-    @media (max-width: 800px) {
-      .intro h1 {
-        line-height: .80;
-        letter-spacing: -.035em;
-      }
-      .intro h1 span:first-child {
-        letter-spacing: -.015em;
-      }
-      .intro h1 span:last-child {
-        margin-top: .11em;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./v2.css">
 </head>
 <body class="home-page">
   <div class="noise" aria-hidden="true"></div>
-
   <section class="intro" id="intro" aria-label="Кто он?">
     <div class="intro-grid" aria-hidden="true"></div>
     <p class="eyebrow intro-label">[ PERSONAL SPACE / 2026 ]</p>
     <div class="intro-mark" aria-hidden="true"><span></span><span></span></div>
-
-    <div class="intro-center">
-      <p class="intro-small">THE XILLIX</p>
-      <h1><span>КТО</span><span>ОН?</span></h1>
-    </div>
-
-    <div class="orbit orbit-a" aria-hidden="true"></div>
-    <div class="orbit orbit-b" aria-hidden="true"></div>
-    <div class="intro-index" aria-hidden="true">001 / 006</div>
+    <div class="intro-center"><p class="intro-small">THE XILLIX</p><h1><span>КТО</span><span>ОН?</span></h1></div>
+    <div class="orbit orbit-a" aria-hidden="true"></div><div class="orbit orbit-b" aria-hidden="true"></div>
+    <div class="intro-index" aria-hidden="true">001 / 007</div>
   </section>
-
-  <main class="menu-screen" id="menuScreen" aria-hidden="true">
-    <header class="dark-topbar">
-      <span class="menu-signature">THE XILLIX</span>
-      <p class="eyebrow">[ INDEX ]</p>
-      <span class="menu-clock" data-clock>--:--</span>
-    </header>
-
-    <div class="menu-decoration" aria-hidden="true">
-      <div class="menu-ring"></div>
-      <div class="menu-cross"><i></i><i></i></div>
-      <span class="menu-serial">VX / 25 / 09</span>
+  <section class="password-screen" id="passwordScreen" aria-hidden="true">
+    <div class="gate-grid" aria-hidden="true"></div>
+    <p class="eyebrow gate-label">[ ACCESS / PERSONAL SPACE ]</p>
+    <div class="gate-mark" aria-hidden="true"><span></span><span></span></div>
+    <div class="gate-center">
+      <p class="eyebrow">[ ВВЕДИ ПАРОЛЬ ]</p>
+      <label class="password-field"><span class="sr-only">Пароль</span><input id="sitePassword" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-label="Введите пароль"></label>
+      <p class="gate-hint">4 DIGITS / NO ENTER</p>
     </div>
-
-    <section class="menu-content">
-      <div class="menu-heading">
-        <p class="eyebrow">[ NAVIGATION ]</p>
-        <h2>МЕНЮ</h2>
-        <p class="menu-note">ЛИЧНОЕ ПРОСТРАНСТВО<br>БЕЗ ЛИШНЕГО ШУМА.</p>
-      </div>
-
-      <nav class="main-nav" aria-label="Главное меню">
-        <a href="./about.html" data-index="01"><span>ОБО МНЕ</span></a>
-        <a href="./now.html" data-index="02"><span>СЕЙЧАС</span></a>
-        <a href="./inspiration.html" data-index="03"><span>ВДОХНОВЕНИЕ</span></a>
-        <a href="./projects.html" data-index="04"><span>МОИ ПРОЕКТЫ</span></a>
-        <a href="./contacts.html" data-index="05"><span>КОНТАКТЫ</span></a>
-      </nav>
+    <div class="gate-orbit" aria-hidden="true"></div><span class="gate-index">002 / 007</span>
+  </section>
+  <main class="menu-screen" id="menuScreen" aria-hidden="true">
+    <header class="dark-topbar"><span class="menu-signature">THE XILLIX</span><p class="eyebrow">[ INDEX ]</p><span class="menu-clock" data-clock>--:--</span></header>
+    <div class="menu-decoration" aria-hidden="true"><div class="menu-ring"></div><div class="menu-cross"><i></i><i></i></div><span class="menu-serial">VX / 25 / 09</span></div>
+    <section class="menu-content"><div class="menu-heading"><p class="eyebrow">[ NAVIGATION ]</p><h2>МЕНЮ</h2><p class="menu-note">ЛИЧНОЕ ПРОСТРАНСТВО<br>БЕЗ ЛИШНЕГО ШУМА.</p></div>
+      <nav class="main-nav" aria-label="Главное меню"><a href="./about.html" data-index="01"><span>ОБО МНЕ</span></a><a href="./now.html" data-index="02"><span>СЕЙЧАС</span></a><a href="./inspiration.html" data-index="03"><span>ВДОХНОВЕНИЕ</span></a><a href="./projects.html" data-index="04"><span>МОИ ПРОЕКТЫ</span></a><a href="./contacts.html" data-index="05"><span>КОНТАКТЫ</span></a></nav>
     </section>
-
-    <footer class="dark-footer">
-      <span>VLAD / THEXILLIX</span>
-      <span>PERSONAL WEBSITE</span>
-      <span>2026</span>
-    </footer>
+    <footer class="dark-footer"><span>VLAD / THEXILLIX</span><span>PERSONAL WEBSITE</span><span>2026</span></footer>
   </main>
-
   <script src="./app.js"></script>
-</body>
-</html>
+</body></html>
