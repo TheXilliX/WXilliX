@@ -1,66 +1,62 @@
 const intro = document.getElementById('intro');
-const passwordScreen = document.getElementById('passwordScreen');
+const gate = document.getElementById('passwordScreen');
 const passwordInput = document.getElementById('sitePassword');
 const menu = document.getElementById('menuScreen');
 
-function showMenuImmediate() {
+function showMenu({ immediate = false } = {}) {
+  if (!menu) return;
   intro?.classList.add('is-skipped');
   intro?.setAttribute('aria-hidden', 'true');
-  passwordScreen?.classList.add('is-finished');
-  passwordScreen?.setAttribute('aria-hidden', 'true');
-  if (!menu) return;
+  gate?.classList.remove('is-visible', 'is-unlocking');
+  gate?.classList.add('is-finished');
+  gate?.setAttribute('aria-hidden', 'true');
   menu.classList.add('is-visible');
   menu.setAttribute('aria-hidden', 'false');
+  if (!immediate) {
+    menu.animate(
+      [
+        { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.01)' },
+        { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }
+      ],
+      { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' }
+    );
+  }
 }
 
-function showPasswordGate() {
-  if (!passwordScreen) {
-    showMenuImmediate();
-    return;
-  }
-
+function showPassword() {
+  if (!gate) return showMenu();
   intro?.classList.add('is-leaving');
   window.setTimeout(() => {
-    passwordScreen.classList.add('is-visible');
-    passwordScreen.setAttribute('aria-hidden', 'false');
+    gate.classList.add('is-visible');
+    gate.setAttribute('aria-hidden', 'false');
     passwordInput?.focus({ preventScroll: true });
-  }, 320);
-
+  }, 300);
   window.setTimeout(() => {
     intro?.classList.add('is-finished');
     intro?.setAttribute('aria-hidden', 'true');
-  }, 1050);
-}
-
-function unlockSite() {
-  if (!passwordScreen || !menu) return;
-  passwordScreen.classList.add('is-unlocking');
-  passwordInput?.blur();
-
-  window.setTimeout(() => {
-    menu.classList.add('is-visible');
-    menu.setAttribute('aria-hidden', 'false');
-  }, 300);
-
-  window.setTimeout(() => {
-    passwordScreen.classList.remove('is-visible');
-    passwordScreen.classList.add('is-finished');
-    passwordScreen.setAttribute('aria-hidden', 'true');
-  }, 850);
+  }, 980);
 }
 
 if (menu) {
-  if (window.location.hash === '#menu') {
-    showMenuImmediate();
+  const skipGateOnce = sessionStorage.getItem('skipGateOnce') === '1';
+  if (skipGateOnce) {
+    sessionStorage.removeItem('skipGateOnce');
+    showMenu({ immediate: true });
   } else {
-    window.setTimeout(showPasswordGate, 2000);
+    window.setTimeout(showPassword, 2000);
   }
 }
 
-passwordInput?.addEventListener('input', () => {
-  passwordInput.value = passwordInput.value.replace(/\D/g, '').slice(0, 4);
-  if (passwordInput.value === '1812') unlockSite();
-});
+if (passwordInput) {
+  passwordInput.addEventListener('input', () => {
+    passwordInput.value = passwordInput.value.replace(/\D/g, '').slice(0, 4);
+    if (passwordInput.value !== '1812') return;
+
+    passwordInput.blur();
+    gate?.classList.add('is-unlocking');
+    window.setTimeout(() => showMenu(), 420);
+  });
+}
 
 function updateClock() {
   document.querySelectorAll('[data-clock]').forEach((node) => {
@@ -79,13 +75,11 @@ menuLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-
     const href = link.getAttribute('href');
     if (!href || !menu) return;
 
     menu.classList.add('is-transitioning');
     link.classList.add('is-selected');
-
     window.setTimeout(() => menu.classList.add('to-milk'), 110);
     window.setTimeout(() => { window.location.href = href; }, 760);
   });
@@ -106,103 +100,71 @@ function wireAccordion(selector, cardSelector) {
 wireAccordion('.project-toggle', '.project-card');
 wireAccordion('.accordion-toggle', '.now-item');
 
-const inspirationModals = document.querySelectorAll('.inspiration-modal');
+const modals = document.querySelectorAll('.inspiration-modal');
+const launchers = document.querySelectorAll('[data-panel]');
 
-function openModal(name) {
-  const modal = document.querySelector(`.inspiration-modal[data-modal="${name}"]`);
-  if (!modal) return;
-  document.body.classList.add('modal-open');
-  modal.classList.add('is-open');
-  modal.setAttribute('aria-hidden', 'false');
+function closeAllModals() {
+  modals.forEach((modal) => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  });
+  document.body.classList.remove('modal-open');
 }
 
-function closeModal(modal) {
-  if (!modal) return;
-  modal.classList.remove('is-open');
-  modal.setAttribute('aria-hidden', 'true');
-  if (!document.querySelector('.inspiration-modal.is-open')) {
-    document.body.classList.remove('modal-open');
-  }
-}
-
-document.querySelectorAll('[data-panel]').forEach((button) => {
-  button.addEventListener('click', () => openModal(button.dataset.panel));
+launchers.forEach((button) => {
+  button.addEventListener('click', () => {
+    const name = button.dataset.panel;
+    const modal = document.querySelector(`[data-modal="${name}"]`);
+    if (!modal) return;
+    closeAllModals();
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  });
 });
 
 document.querySelectorAll('[data-close-modal]').forEach((button) => {
-  button.addEventListener('click', () => closeModal(button.closest('.inspiration-modal')));
+  button.addEventListener('click', closeAllModals);
 });
 
-const posterImages = Array.isArray(window.POSTER_IMAGES) ? window.POSTER_IMAGES : [];
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeAllModals();
+});
+
 const posterGrid = document.getElementById('posterGrid');
 const posterPreview = document.getElementById('posterPreview');
-const posterViewer = document.getElementById('posterViewer');
-const posterViewerImage = document.getElementById('posterViewerImage');
-
-if (posterPreview && posterImages.length) {
-  posterPreview.src = posterImages[0];
-}
-
-if (posterGrid) {
-  posterImages.forEach((src, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'poster-thumb';
-    button.setAttribute('aria-label', `Открыть постер ${index + 1}`);
-
+if (posterGrid && Array.isArray(window.POSTER_IMAGES)) {
+  const validPosters = window.POSTER_IMAGES.filter((src) => typeof src === 'string' && src.startsWith('data:image/'));
+  validPosters.forEach((src, index) => {
+    const figure = document.createElement('figure');
+    figure.className = 'poster-static';
     const img = document.createElement('img');
     img.src = src;
     img.alt = `Постер ${index + 1}`;
     img.loading = 'lazy';
-    button.appendChild(img);
-
-    button.addEventListener('click', () => {
-      if (!posterViewer || !posterViewerImage) return;
-      posterViewerImage.src = src;
-      posterViewer.classList.add('is-open');
-      posterViewer.setAttribute('aria-hidden', 'false');
-    });
-
-    posterGrid.appendChild(button);
+    figure.appendChild(img);
+    posterGrid.appendChild(figure);
   });
-}
-
-function closePosterViewer() {
-  if (!posterViewer) return;
-  posterViewer.classList.remove('is-open');
-  posterViewer.setAttribute('aria-hidden', 'true');
-  if (posterViewerImage) posterViewerImage.removeAttribute('src');
-}
-
-document.querySelectorAll('[data-close-viewer]').forEach((button) => {
-  button.addEventListener('click', closePosterViewer);
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape') return;
-  if (posterViewer?.classList.contains('is-open')) {
-    closePosterViewer();
-    return;
+  if (posterPreview && validPosters[0]) {
+    posterPreview.src = validPosters[0];
   }
-  const open = document.querySelector('.inspiration-modal.is-open');
-  if (open) closeModal(open);
-});
+}
 
-document.querySelectorAll('[data-copy]').forEach((button) => {
-  button.addEventListener('click', async () => {
-    const value = button.dataset.copy;
-    const state = button.querySelector('.copy-state');
-    if (!value || !state) return;
+const copyButton = document.querySelector('.contact-copy');
+if (copyButton) {
+  copyButton.addEventListener('click', async () => {
+    const value = copyButton.dataset.copy || '';
+    const label = copyButton.querySelector('.copy-state');
     try {
       await navigator.clipboard.writeText(value);
-      const previous = state.textContent;
-      state.textContent = 'СКОПИРОВАНО';
-      window.setTimeout(() => { state.textContent = previous; }, 1300);
-    } catch (_) {
-      state.textContent = value;
-    }
+      if (label) {
+        const previous = label.textContent;
+        label.textContent = 'СКОПИРОВАНО';
+        window.setTimeout(() => { label.textContent = previous; }, 1400);
+      }
+    } catch (_) {}
   });
-});
+}
 
 document.querySelectorAll('a').forEach((link) => {
   if (link.closest('.main-nav')) return;
@@ -212,6 +174,11 @@ document.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
+
+    if (link.classList.contains('menu-link') && href.includes('index.html#menu')) {
+      sessionStorage.setItem('skipGateOnce', '1');
+    }
+
     document.body.classList.add('page-is-leaving');
     window.setTimeout(() => { window.location.href = href; }, 320);
   });
