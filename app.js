@@ -8,19 +8,21 @@ mobilePolish.textContent = `
 button,a,.accordion-toggle,.project-toggle,.menu-link{-webkit-tap-highlight-color:transparent}
 button,.accordion-toggle,.project-toggle{-webkit-appearance:none;appearance:none}
 button:focus:not(:focus-visible),a:focus:not(:focus-visible){outline:none}
-.gate-center{left:50vw!important;right:auto!important;top:50dvh!important;transform:translate(-50%,-50%)!important;margin:0!important;width:min(88vw,560px)!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important}
+.password-screen{display:grid!important;place-items:center!important}
+.gate-center{position:relative!important;inset:auto!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:0!important;width:min(560px,calc(100vw - 40px))!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important}
 .gate-center>.eyebrow,.gate-hint{width:100%!important;text-align:center!important}
-.password-field{width:min(78vw,430px)!important;margin-left:auto!important;margin-right:auto!important}
-.password-field input{width:100%!important;text-align:center!important;box-sizing:border-box!important}
+.password-field{width:min(430px,100%)!important;margin:32px auto 18px!important}
+.password-field input{width:100%!important;box-sizing:border-box!important;text-align:center!important;padding-left:0!important;padding-right:0!important}
 .mobile-split-title span{display:inline}
 @media(max-width:800px){
   .mobile-split-title{font-size:clamp(3.7rem,17vw,5.8rem)!important;line-height:.78!important;letter-spacing:-.07em!important}
   .mobile-split-title span{display:block}
-  .gate-center{width:86vw!important;left:50vw!important;top:50dvh!important}
+  .gate-center{width:calc(100vw - 40px)!important}
   .gate-center>.eyebrow{font-size:.68rem!important}
   .gate-hint{font-size:.58rem!important;letter-spacing:.14em!important}
-  .accordion-toggle,.project-toggle{outline:none!important;box-shadow:none!important}
+  .accordion-toggle,.project-toggle{outline:none!important;box-shadow:none!important;width:100%!important;box-sizing:border-box!important;min-height:82px!important}
   .accordion-toggle:active,.project-toggle:active{background:transparent!important}
+  .project-card,.now-item,.project-details,.accordion-details{width:100%!important;max-width:none!important;box-sizing:border-box!important}
 }
 `;
 document.head.appendChild(mobilePolish);
