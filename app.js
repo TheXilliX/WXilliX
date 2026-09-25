@@ -72,7 +72,9 @@ menuLinks.forEach((link) => {
   });
 });
 
-document.querySelectorAll('a:not(.main-nav a)').forEach((link) => {
+document.querySelectorAll('a').forEach((link) => {
+  if (link.closest('.main-nav')) return;
+
   const href = link.getAttribute('href');
   if (!href || href === '#' || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
 
