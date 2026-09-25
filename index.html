@@ -10,6 +10,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
+  <style>
+    /* Fine-tune the intro lockup: keep the original scale, remove collisions. */
+    .intro h1 {
+      line-height: .76;
+      letter-spacing: -.045em;
+    }
+    .intro h1 span:first-child {
+      letter-spacing: -.025em;
+    }
+    .intro h1 span:last-child {
+      margin-top: .10em;
+      letter-spacing: -.045em;
+    }
+    @media (max-width: 800px) {
+      .intro h1 {
+        line-height: .80;
+        letter-spacing: -.035em;
+      }
+      .intro h1 span:first-child {
+        letter-spacing: -.015em;
+      }
+      .intro h1 span:last-child {
+        margin-top: .11em;
+      }
+    }
+  </style>
 </head>
 <body class="home-page">
   <div class="noise" aria-hidden="true"></div>
