@@ -227,10 +227,15 @@ const coniferMenuTrigger = document.querySelector('#coniferMenuTrigger');
 const cultTreeButton = document.querySelector('#treeButton');
 const cultBackButton = document.querySelector('#backButton');
 let cultTimers = [];
+let cultCloseTimer = null;
 
 function clearCultTimers() {
   cultTimers.forEach(clearTimeout);
   cultTimers = [];
+  if (cultCloseTimer) {
+    window.clearTimeout(cultCloseTimer);
+    cultCloseTimer = null;
+  }
   cultTreeButton?.classList.remove('is-pressing');
 }
 
@@ -265,13 +270,14 @@ function closeConiferCult() {
     coniferScene.style.filter = 'blur(16px)';
     coniferScene.style.transform = 'scale(1.015)';
   });
-  cultTimers.push(setTimeout(() => {
+  cultCloseTimer = window.setTimeout(() => {
     coniferScene.classList.remove('is-closing', 'is-open', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
     coniferScene.style.removeProperty('opacity');
     coniferScene.style.removeProperty('filter');
     coniferScene.style.removeProperty('transform');
     coniferScene.setAttribute('aria-hidden', 'true');
-  }, 800));
+    cultCloseTimer = null;
+  }, 780);
 }
 
 coniferMenuTrigger?.addEventListener('click', (event) => {
