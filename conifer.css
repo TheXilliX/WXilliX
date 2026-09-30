@@ -39,7 +39,8 @@
       isolation: isolate;
       overflow: hidden;
       background-color: var(--milk);
-      background-image: url('./assets/rko-background.png');
+      /* Keep the cult scene independent from the old RKO course artwork. */
+      background-image: none;
       background-repeat: no-repeat;
       background-position: center top;
       background-size: cover;
@@ -958,6 +959,101 @@
   .p18 { --x: 55vw; --y: 13vh; }
   .p19 { --x: 38vw; --y: 20vh; }
   .p20 { --x: 87vw; --y: 53vh; }
+}
+
+/* v23 ritual final overrides: these rules intentionally come last so they
+   win over the legacy prototype positioning above. */
+.click-cone { animation-duration: .62s; }
+.p1 { --x: -4vw; --y: -3vh; }
+.p2 { --x: 18vw; --y: -8vh; }
+.p3 { --x: 44vw; --y: -10vh; }
+.p4 { --x: 76vw; --y: 4vh; }
+.p5 { --x: -5vw; --y: 22vh; }
+.p6 { --x: -8vw; --y: 48vh; }
+.p7 { --x: 80vw; --y: 20vh; }
+.p8 { --x: 82vw; --y: 44vh; }
+.p9 { --x: -4vw; --y: 70vh; }
+.p10 { --x: 80vw; --y: 68vh; }
+.p11 { --x: 10vw; --y: 82vh; }
+.p12 { --x: 34vw; --y: 86vh; }
+.p13 { --x: 70vw; --y: 84vh; }
+.p14 { --x: 4vw; --y: 10vh; }
+.p15 { --x: 70vw; --y: -2vh; }
+.p16 { --x: 4vw; --y: 38vh; }
+.p17 { --x: 74vw; --y: 36vh; }
+.p18 { --x: 62vw; --y: 76vh; }
+.p19 { --x: 48vw; --y: 88vh; }
+.p20 { --x: 18vw; --y: 74vh; }
+
+@media (max-width: 650px) {
+  .p1 { --x: -8vw; --y: -2vh; }
+  .p2 { --x: 8vw; --y: -5vh; }
+  .p3 { --x: 38vw; --y: -8vh; }
+  .p4 { --x: 72vw; --y: 2vh; }
+  .p5 { --x: -8vw; --y: 24vh; }
+  .p6 { --x: -10vw; --y: 50vh; }
+  .p7 { --x: 66vw; --y: 22vh; }
+  .p8 { --x: 70vw; --y: 46vh; }
+  .p9 { --x: -6vw; --y: 70vh; }
+  .p10 { --x: 66vw; --y: 66vh; }
+  .p11 { --x: 6vw; --y: 82vh; }
+  .p12 { --x: 24vw; --y: 86vh; }
+  .p13 { --x: 60vw; --y: 84vh; }
+  .p14 { --x: 0vw; --y: 12vh; }
+  .p15 { --x: 60vw; --y: -2vh; }
+  .p16 { --x: 0vw; --y: 40vh; }
+  .p17 { --x: 62vw; --y: 38vh; }
+  .p18 { --x: 54vw; --y: 78vh; }
+  .p19 { --x: 34vw; --y: 88vh; }
+  .p20 { --x: 12vw; --y: 74vh; }
+}
+
+/* v23 ritual polish: release particles in every direction and keep the
+   centre readable by arranging them in loose edge groups. */
+.click-cone { animation-duration: .62s; }
+
+.p1 { --x: -4vw; --y: -3vh; }
+.p2 { --x: 18vw; --y: -8vh; }
+.p3 { --x: 44vw; --y: -10vh; }
+.p4 { --x: 76vw; --y: 4vh; }
+.p5 { --x: -5vw; --y: 22vh; }
+.p6 { --x: -8vw; --y: 48vh; }
+.p7 { --x: 80vw; --y: 20vh; }
+.p8 { --x: 82vw; --y: 44vh; }
+.p9 { --x: -4vw; --y: 70vh; }
+.p10 { --x: 80vw; --y: 68vh; }
+.p11 { --x: 10vw; --y: 82vh; }
+.p12 { --x: 34vw; --y: 86vh; }
+.p13 { --x: 70vw; --y: 84vh; }
+.p14 { --x: 4vw; --y: 10vh; }
+.p15 { --x: 70vw; --y: -2vh; }
+.p16 { --x: 4vw; --y: 38vh; }
+.p17 { --x: 74vw; --y: 36vh; }
+.p18 { --x: 62vw; --y: 76vh; }
+.p19 { --x: 48vw; --y: 88vh; }
+.p20 { --x: 18vw; --y: 74vh; }
+
+@media (max-width: 650px) {
+  .p1 { --x: -8vw; --y: -2vh; }
+  .p2 { --x: 8vw; --y: -5vh; }
+  .p3 { --x: 38vw; --y: -8vh; }
+  .p4 { --x: 72vw; --y: 2vh; }
+  .p5 { --x: -8vw; --y: 24vh; }
+  .p6 { --x: -10vw; --y: 50vh; }
+  .p7 { --x: 66vw; --y: 22vh; }
+  .p8 { --x: 70vw; --y: 46vh; }
+  .p9 { --x: -6vw; --y: 70vh; }
+  .p10 { --x: 66vw; --y: 66vh; }
+  .p11 { --x: 6vw; --y: 82vh; }
+  .p12 { --x: 24vw; --y: 86vh; }
+  .p13 { --x: 60vw; --y: 84vh; }
+  .p14 { --x: 0vw; --y: 12vh; }
+  .p15 { --x: 60vw; --y: -2vh; }
+  .p16 { --x: 0vw; --y: 40vh; }
+  .p17 { --x: 62vw; --y: 38vh; }
+  .p18 { --x: 54vw; --y: 78vh; }
+  .p19 { --x: 34vw; --y: 88vh; }
+  .p20 { --x: 12vw; --y: 74vh; }
 }
 
 

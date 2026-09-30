@@ -308,11 +308,11 @@ function previewConeBurst() {
   const countByClick = [2, 3, 4, 5];
   const count = countByClick[Math.min(cultClickCount - 1, countByClick.length - 1)];
   const vectors = [
-    { x: 68, y: 52, size: 34, rotation: -32 },
-    { x: 128, y: 96, size: 52, rotation: 28 },
-    { x: 206, y: 22, size: 42, rotation: 18 },
-    { x: 270, y: 132, size: 30, rotation: -22 },
-    { x: 164, y: 190, size: 58, rotation: 42 }
+    { x: -38, y: -30, size: 34, rotation: -32 },
+    { x: 86, y: -46, size: 52, rotation: 28 },
+    { x: 198, y: 18, size: 42, rotation: 18 },
+    { x: -58, y: 92, size: 30, rotation: -22 },
+    { x: 132, y: 154, size: 58, rotation: 42 }
   ];
 
   for (let i = 0; i < count; i += 1) {
@@ -327,7 +327,7 @@ function previewConeBurst() {
     cone.style.setProperty('--size', String(vector.size + ((cultClickCount + i) % 3) * 8) + 'px');
     cone.style.setProperty('--rotation', String(vector.rotation + cultClickCount * 7) + 'deg');
     cultOrigin.appendChild(cone);
-    window.setTimeout(() => cone.remove(), 760);
+    window.setTimeout(() => cone.remove(), 620);
   }
 }
 
@@ -365,7 +365,7 @@ function startFullConiferRitual() {
 
     cultTimers.push(window.setTimeout(() => {
       coniferScene.classList.add('is-regalia-content');
-    }, 4500));
+    }, 4000));
   }, 140));
 }
 
