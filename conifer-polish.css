@@ -1,0 +1,31 @@
+/* Softer pinecone previews: short travel, slower easing, no firework snap. */
+.click-cone,
+.menu-click-cone {
+  transform: translate(-50%, -50%) scale(.48) rotate(0deg);
+  animation: gentleConeDrift var(--cone-duration, 1.08s) cubic-bezier(.16, 1, .3, 1) both !important;
+  filter: drop-shadow(0 4px 5px rgba(23, 57, 42, .18));
+}
+
+@keyframes gentleConeDrift {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.48) rotate(0deg);
+  }
+  16% {
+    opacity: .88;
+  }
+  68% {
+    opacity: .78;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(.78) rotate(var(--rotation, 0deg));
+  }
+}
+
+/* Back remains comfortably clickable as soon as the regalia starts appearing. */
+.conifer-scene.is-regalia .back-button,
+.conifer-scene.is-regalia-content .back-button {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
