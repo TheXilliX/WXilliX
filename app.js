@@ -32,6 +32,35 @@ if (inspirationTitle && inspirationTitle.textContent.trim() === 'ВДОХНОВ�
 }
 
 let introTimer = null;
+let introFailsafeTimer = null;
+let menuHasBeenShown = false;
+
+function readSessionFlag(key) {
+  try {
+    return window.sessionStorage?.getItem(key) === '1';
+  } catch (_) {
+    // Some mobile/private browsers can deny storage access. The intro must
+    // still be able to continue when that happens.
+    return false;
+  }
+}
+
+function removeSessionFlag(key) {
+  try {
+    window.sessionStorage?.removeItem(key);
+  } catch (_) {}
+}
+
+function clearIntroTimers() {
+  if (introTimer) {
+    window.clearTimeout(introTimer);
+    introTimer = null;
+  }
+  if (introFailsafeTimer) {
+    window.clearTimeout(introFailsafeTimer);
+    introFailsafeTimer = null;
+  }
+}
 
 function resetMenuState() {
   if (!menu) return;
@@ -41,10 +70,9 @@ function resetMenuState() {
 
 function showMenu({ immediate = false } = {}) {
   if (!menu) return;
-  if (introTimer) {
-    window.clearTimeout(introTimer);
-    introTimer = null;
-  }
+  if (menuHasBeenShown && !immediate) return;
+  menuHasBeenShown = true;
+  clearIntroTimers();
 
   resetMenuState();
   menu.classList.add('is-visible');
@@ -61,13 +89,20 @@ function showMenu({ immediate = false } = {}) {
   intro?.classList.add('is-leaving');
   intro?.setAttribute('aria-hidden', 'true');
 
-  menu.animate(
-    [
-      { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.01)' },
-      { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }
-    ],
-    { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' }
-  );
+  // Web Animations is unavailable in a few embedded/mobile browsers. The
+  // CSS state change above is the source of truth, so animation is optional.
+  try {
+    if (typeof menu.animate === 'function') {
+      const animation = menu.animate(
+        [
+          { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.01)' },
+          { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }
+        ],
+        { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' }
+      );
+      animation?.catch?.(() => {});
+    }
+  } catch (_) {}
 
   window.setTimeout(() => {
     intro?.classList.remove('is-leaving');
@@ -76,13 +111,20 @@ function showMenu({ immediate = false } = {}) {
 }
 
 if (menu) {
-  const skipGateOnce = sessionStorage.getItem('skipGateOnce') === '1';
-  if (skipGateOnce) sessionStorage.removeItem('skipGateOnce');
+  const skipGateOnce = readSessionFlag('skipGateOnce');
+  if (skipGateOnce) removeSessionFlag('skipGateOnce');
 
   if (location.hash === '#menu' || skipGateOnce) {
     showMenu({ immediate: true });
   } else {
     introTimer = window.setTimeout(() => showMenu(), 1500);
+    // Hard fallback: never leave a visitor stuck on the intro if a mobile
+    // browser pauses a transition or rejects one of the optional APIs.
+    introFailsafeTimer = window.setTimeout(() => {
+      if (!intro?.classList.contains('is-finished') && !intro?.classList.contains('is-skipped')) {
+        showMenu({ immediate: true });
+      }
+    }, 3200);
   }
 }
 
@@ -206,7 +248,7 @@ document.querySelectorAll('a').forEach((link) => {
     event.preventDefault();
 
     if (link.classList.contains('menu-link') && href.includes('index.html#menu')) {
-      sessionStorage.setItem('skipGateOnce', '1');
+      try { window.sessionStorage?.setItem('skipGateOnce', '1'); } catch (_) {}
     }
 
     document.body.classList.add('page-is-leaving');
@@ -216,7 +258,7 @@ document.querySelectorAll('a').forEach((link) => {
 
 window.addEventListener('pageshow', (event) => {
   document.body.classList.remove('page-is-leaving');
-  const navigationType = performance.getEntriesByType('navigation')[0]?.type;
+  const navigationType = window.performance?.getEntriesByType?.('navigation')?.[0]?.type;
   if (event.persisted || navigationType === 'back_forward' || location.hash === '#menu') {
     showMenu({ immediate: true });
   }
@@ -376,4 +418,3 @@ cultBackButton?.addEventListener('click', (event) => {
 window.addEventListener('hashchange', () => {
   if (location.hash === '#menu') showMenu({ immediate: true });
 });
-
