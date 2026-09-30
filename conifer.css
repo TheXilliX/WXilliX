@@ -917,48 +917,48 @@
 }
 
 /* Full-screen destinations, kept mostly at the edges so the copy stays readable. */
-.p1 { --x: 12vw; --y: 12vh; }
-.p2 { --x: 84vw; --y: 18vh; }
-.p3 { --x: 76vw; --y: 34vh; }
-.p4 { --x: 88vw; --y: 72vh; }
-.p5 { --x: 18vw; --y: 80vh; }
-.p6 { --x: 10vw; --y: 60vh; }
-.p7 { --x: 78vw; --y: 48vh; }
-.p8 { --x: 84vw; --y: 10vh; }
-.p9 { --x: 26vw; --y: 28vh; }
-.p10 { --x: 80vw; --y: 86vh; }
-.p11 { --x: 12vw; --y: 82vh; }
-.p12 { --x: 72vw; --y: 26vh; }
-.p13 { --x: 24vw; --y: 72vh; }
-.p14 { --x: 68vw; --y: 84vh; }
-.p15 { --x: 34vw; --y: 86vh; }
-.p16 { --x: 20vw; --y: 44vh; }
-.p17 { --x: 70vw; --y: 62vh; }
-.p18 { --x: 58vw; --y: 14vh; }
-.p19 { --x: 42vw; --y: 20vh; }
-.p20 { --x: 92vw; --y: 54vh; }
+.p1 { --x: -4vw; --y: -3vh; }
+.p2 { --x: 18vw; --y: -8vh; }
+.p3 { --x: 44vw; --y: -10vh; }
+.p4 { --x: 76vw; --y: 4vh; }
+.p5 { --x: -5vw; --y: 22vh; }
+.p6 { --x: -8vw; --y: 48vh; }
+.p7 { --x: 80vw; --y: 20vh; }
+.p8 { --x: 82vw; --y: 44vh; }
+.p9 { --x: -4vw; --y: 70vh; }
+.p10 { --x: 80vw; --y: 68vh; }
+.p11 { --x: 10vw; --y: 82vh; }
+.p12 { --x: 34vw; --y: 86vh; }
+.p13 { --x: 70vw; --y: 84vh; }
+.p14 { --x: 4vw; --y: 10vh; }
+.p15 { --x: 70vw; --y: -2vh; }
+.p16 { --x: 4vw; --y: 38vh; }
+.p17 { --x: 74vw; --y: 36vh; }
+.p18 { --x: 62vw; --y: 76vh; }
+.p19 { --x: 48vw; --y: 88vh; }
+.p20 { --x: 18vw; --y: 74vh; }
 
 @media (max-width: 650px) {
-  .p1 { --x: 14vw; --y: 13vh; }
-  .p2 { --x: 78vw; --y: 16vh; }
-  .p3 { --x: 73vw; --y: 31vh; }
-  .p4 { --x: 82vw; --y: 70vh; }
-  .p5 { --x: 15vw; --y: 78vh; }
-  .p6 { --x: 10vw; --y: 56vh; }
-  .p7 { --x: 72vw; --y: 47vh; }
-  .p8 { --x: 80vw; --y: 9vh; }
-  .p9 { --x: 24vw; --y: 28vh; }
-  .p10 { --x: 77vw; --y: 84vh; }
-  .p11 { --x: 12vw; --y: 80vh; }
-  .p12 { --x: 67vw; --y: 25vh; }
-  .p13 { --x: 22vw; --y: 70vh; }
-  .p14 { --x: 64vw; --y: 82vh; }
-  .p15 { --x: 31vw; --y: 84vh; }
-  .p16 { --x: 18vw; --y: 43vh; }
-  .p17 { --x: 66vw; --y: 60vh; }
-  .p18 { --x: 55vw; --y: 13vh; }
-  .p19 { --x: 38vw; --y: 20vh; }
-  .p20 { --x: 87vw; --y: 53vh; }
+  .p1 { --x: -8vw; --y: -2vh; }
+  .p2 { --x: 8vw; --y: -5vh; }
+  .p3 { --x: 38vw; --y: -8vh; }
+  .p4 { --x: 72vw; --y: 2vh; }
+  .p5 { --x: -8vw; --y: 24vh; }
+  .p6 { --x: -10vw; --y: 50vh; }
+  .p7 { --x: 66vw; --y: 22vh; }
+  .p8 { --x: 70vw; --y: 46vh; }
+  .p9 { --x: -6vw; --y: 70vh; }
+  .p10 { --x: 66vw; --y: 66vh; }
+  .p11 { --x: 6vw; --y: 82vh; }
+  .p12 { --x: 24vw; --y: 86vh; }
+  .p13 { --x: 60vw; --y: 84vh; }
+  .p14 { --x: 0vw; --y: 12vh; }
+  .p15 { --x: 60vw; --y: -2vh; }
+  .p16 { --x: 0vw; --y: 40vh; }
+  .p17 { --x: 62vw; --y: 38vh; }
+  .p18 { --x: 54vw; --y: 78vh; }
+  .p19 { --x: 34vw; --y: 88vh; }
+  .p20 { --x: 12vw; --y: 74vh; }
 }
 
 /* v23 ritual final overrides: these rules intentionally come last so they
@@ -1053,7 +1053,7 @@
   .p17 { --x: 62vw; --y: 38vh; }
   .p18 { --x: 54vw; --y: 78vh; }
   .p19 { --x: 34vw; --y: 88vh; }
-  .p20 { --x: 12vw; --y: 74vh; }
+.p20 { --x: 12vw; --y: 74vh; }
 }
 
 
@@ -1084,7 +1084,7 @@
   pointer-events: none;
   transform: translate(-50%, -50%) scale(.18) rotate(0deg);
   transform-origin: center;
-  animation: clickConeBurst .68s cubic-bezier(.22, 1, .36, 1) both;
+  animation: clickConeBurst .62s cubic-bezier(.22, 1, .36, 1) both;
   filter: drop-shadow(0 5px 5px rgba(23, 57, 42, .22));
 }
 @keyframes clickConeBurst {
@@ -1152,5 +1152,51 @@
   .p17 { --x: 66vw; --y: 60vh; }
   .p18 { --x: 55vw; --y: 13vh; }
   .p19 { --x: 38vw; --y: 20vh; }
-  .p20 { --x: 87vw; --y: 53vh; }
+  .p20 { --x: 12vw; --y: 74vh; }
+}
+
+/* v23 ritual final positioning: the button is the origin, with destinations
+   above, below, left and right of the copy. */
+.p1 { --x: -4vw; --y: -3vh; }
+.p2 { --x: 18vw; --y: -8vh; }
+.p3 { --x: 44vw; --y: -10vh; }
+.p4 { --x: 76vw; --y: 4vh; }
+.p5 { --x: -5vw; --y: 22vh; }
+.p6 { --x: -8vw; --y: 48vh; }
+.p7 { --x: 80vw; --y: 20vh; }
+.p8 { --x: 82vw; --y: 44vh; }
+.p9 { --x: -4vw; --y: 70vh; }
+.p10 { --x: 80vw; --y: 68vh; }
+.p11 { --x: 10vw; --y: 82vh; }
+.p12 { --x: 34vw; --y: 86vh; }
+.p13 { --x: 70vw; --y: 84vh; }
+.p14 { --x: 4vw; --y: 10vh; }
+.p15 { --x: 70vw; --y: -2vh; }
+.p16 { --x: 4vw; --y: 38vh; }
+.p17 { --x: 74vw; --y: 36vh; }
+.p18 { --x: 62vw; --y: 76vh; }
+.p19 { --x: 48vw; --y: 88vh; }
+.p20 { --x: 18vw; --y: 74vh; }
+
+@media (max-width: 650px) {
+  .p1 { --x: -8vw; --y: -2vh; }
+  .p2 { --x: 8vw; --y: -5vh; }
+  .p3 { --x: 38vw; --y: -8vh; }
+  .p4 { --x: 72vw; --y: 2vh; }
+  .p5 { --x: -8vw; --y: 24vh; }
+  .p6 { --x: -10vw; --y: 50vh; }
+  .p7 { --x: 66vw; --y: 22vh; }
+  .p8 { --x: 70vw; --y: 46vh; }
+  .p9 { --x: -6vw; --y: 70vh; }
+  .p10 { --x: 66vw; --y: 66vh; }
+  .p11 { --x: 6vw; --y: 82vh; }
+  .p12 { --x: 24vw; --y: 86vh; }
+  .p13 { --x: 60vw; --y: 84vh; }
+  .p14 { --x: 0vw; --y: 12vh; }
+  .p15 { --x: 60vw; --y: -2vh; }
+  .p16 { --x: 0vw; --y: 40vh; }
+  .p17 { --x: 62vw; --y: 38vh; }
+  .p18 { --x: 54vw; --y: 78vh; }
+  .p19 { --x: 34vw; --y: 88vh; }
+  .p20 { --x: 12vw; --y: 74vh; }
 }
