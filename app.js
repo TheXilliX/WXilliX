@@ -265,11 +265,9 @@ function closeConiferCult() {
   if (!coniferScene) return;
   clearCultTimers();
   coniferScene.classList.add('is-closing');
-  window.requestAnimationFrame(() => {
-    coniferScene.style.opacity = '0';
-    coniferScene.style.filter = 'blur(16px)';
-    coniferScene.style.transform = 'scale(1.015)';
-  });
+  coniferScene.style.opacity = '0';
+  coniferScene.style.filter = 'blur(16px)';
+  coniferScene.style.transform = 'scale(1.015)';
   cultCloseTimer = window.setTimeout(() => {
     coniferScene.classList.remove('is-closing', 'is-open', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
     coniferScene.style.removeProperty('opacity');
