@@ -40,9 +40,6 @@ function showMenu({ immediate = false } = {}) {
   if (!menu) return;
   intro?.classList.add('is-skipped');
   intro?.setAttribute('aria-hidden', 'true');
-  gate?.classList.remove('is-visible', 'is-unlocking');
-  gate?.classList.add('is-finished');
-  gate?.setAttribute('aria-hidden', 'true');
   menu.classList.add('is-visible');
   menu.setAttribute('aria-hidden', 'false');
   if (!immediate) {
@@ -56,52 +53,29 @@ function showMenu({ immediate = false } = {}) {
   }
 }
 
-function showPassword() {
-  if (!gate) return showMenu();
-  intro?.classList.add('is-leaving');
-  window.setTimeout(() => {
-    gate.classList.add('is-visible');
-    gate.setAttribute('aria-hidden', 'false');
-    passwordInput?.focus({ preventScroll: true });
-  }, 300);
-  window.setTimeout(() => {
-    intro?.classList.add('is-finished');
-    intro?.setAttribute('aria-hidden', 'true');
-  }, 980);
-}
-
 if (menu) {
   const skipGateOnce = sessionStorage.getItem('skipGateOnce') === '1';
-  if (skipGateOnce) {
-    sessionStorage.removeItem('skipGateOnce');
-    showMenu({ immediate: false });
+  if (skipGateOnce) sessionStorage.removeItem('skipGateOnce');
+  if (location.hash === '#menu' || skipGateOnce) {
+    showMenu({ immediate: true });
   } else {
-    window.setTimeout(showPassword, 2000);
+    window.setTimeout(() => showMenu(), 2000);
   }
-}
-
-if (passwordInput) {
-  passwordInput.addEventListener('input', () => {
-    passwordInput.value = passwordInput.value.replace(/\D/g, '').slice(0, 4);
-    if (passwordInput.value !== '1812') return;
-
-    passwordInput.blur();
-    gate?.classList.add('is-unlocking');
-    window.setTimeout(() => showMenu(), 420);
-  });
 }
 
 function updateClock() {
   document.querySelectorAll('[data-clock]').forEach((node) => {
     node.textContent = new Intl.DateTimeFormat('ru-RU', {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
     }).format(new Date());
   });
 }
 
 updateClock();
-window.setInterval(updateClock, 30000);
+window.setInterval(updateClock, 1000);
 
 const menuLinks = document.querySelectorAll('.main-nav a');
 menuLinks.forEach((link) => {
@@ -217,6 +191,69 @@ document.querySelectorAll('a').forEach((link) => {
   });
 });
 
-window.addEventListener('pageshow', () => {
+window.addEventListener('pageshow', (event) => {
   document.body.classList.remove('page-is-leaving');
+  if (event.persisted || location.hash === '#menu') showMenu({ immediate: true });
 });
+
+const coniferScene = document.querySelector('#coniferCult');
+const coniferMenuTrigger = document.querySelector('#coniferMenuTrigger');
+const cultTreeButton = document.querySelector('#treeButton');
+const cultBackButton = document.querySelector('#backButton');
+let cultTimers = [];
+
+function clearCultTimers() {
+  cultTimers.forEach(clearTimeout);
+  cultTimers = [];
+  cultTreeButton?.classList.remove('is-pressing');
+}
+
+function openConiferCult() {
+  if (!coniferScene || !cultTreeButton) return;
+  clearCultTimers();
+  coniferScene.classList.remove('is-closing');
+  coniferScene.classList.add('is-open');
+  coniferScene.setAttribute('aria-hidden', 'false');
+  cultTreeButton.classList.add('is-pressing');
+  cultTimers.push(setTimeout(() => {
+    cultTreeButton.classList.remove('is-pressing');
+    coniferScene.classList.add('is-awake', 'is-flight');
+    cultTimers.push(setTimeout(() => coniferScene.classList.add('is-title'), 360));
+    cultTimers.push(setTimeout(() => {
+      coniferScene.classList.remove('is-title');
+      coniferScene.classList.add('is-regalia');
+    }, 1250));
+    cultTimers.push(setTimeout(() => coniferScene.classList.add('is-regalia-content'), 2050));
+  }, 140);
+}
+
+function closeConiferCult() {
+  if (!coniferScene) return;
+  clearCultTimers();
+  coniferScene.classList.add('is-closing');
+  cultTimers.push(setTimeout(() => {
+    coniferScene.classList.remove('is-closing', 'is-open', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
+    coniferScene.setAttribute('aria-hidden', 'true');
+  }, 700));
+}
+
+coniferMenuTrigger?.addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  openConiferCult();
+});
+cultTreeButton?.addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  openConiferCult();
+});
+cultBackButton?.addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  closeConiferCult();
+});
+
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#menu') showMenu({ immediate: true });
+});
+

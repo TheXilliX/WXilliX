@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./v2.css">
   <link rel="stylesheet" href="./v3.css">
+  <link rel="stylesheet" href="./conifer.css">
 </head>
 <body class="home-page">
   <div class="noise" aria-hidden="true"></div>
@@ -23,24 +24,99 @@
     <div class="orbit orbit-a" aria-hidden="true"></div><div class="orbit orbit-b" aria-hidden="true"></div>
     <div class="intro-index" aria-hidden="true">001 / 007</div>
   </section>
-  <section class="password-screen" id="passwordScreen" aria-hidden="true">
-    <div class="gate-grid" aria-hidden="true"></div>
-    <p class="eyebrow gate-label">[ ACCESS / PERSONAL SPACE ]</p>
-    <div class="gate-mark" aria-hidden="true"><span></span><span></span></div>
-    <div class="gate-center">
-      <p class="eyebrow">[ ВВЕДИ ПАРОЛЬ ]</p>
-      <label class="password-field"><span class="sr-only">Пароль</span><input id="sitePassword" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-label="Введите пароль"></label>
-      <p class="gate-hint">DATE OF BIRTH / NO ENTER</p>
-    </div>
-    <div class="gate-orbit" aria-hidden="true"></div><span class="gate-index">002 / 007</span>
-  </section>
   <main class="menu-screen" id="menuScreen" aria-hidden="true">
-    <header class="dark-topbar"><span class="menu-signature">THE XILLIX</span><p class="eyebrow">[ INDEX ]</p><span class="menu-clock" data-clock>--:--</span></header>
+    <header class="dark-topbar">
+      <span class="menu-signature">THE XILLIX</span>
+      <button class="conifer-menu-trigger" id="coniferMenuTrigger" type="button" aria-label="Открыть Хвойный культ">
+        <span class="conifer-menu-halo" aria-hidden="true"></span>
+        <img src="./assets/conifer-cult-tree-centered.png" alt="">
+      </button>
+      <p class="eyebrow">[ INDEX ]</p>
+      <span class="menu-clock" data-clock>--:--:--</span>
+    </header>
     <div class="menu-decoration" aria-hidden="true"><div class="menu-ring"></div><div class="menu-cross"><i></i><i></i></div><span class="menu-serial">VX / 25 / 09</span></div>
     <section class="menu-content"><div class="menu-heading"><p class="eyebrow">[ NAVIGATION ]</p><h2>МЕНЮ</h2><p class="menu-note">ЛИЧНОЕ ПРОСТРАНСТВО<br>БЕЗ ЛИШНЕГО ШУМА.</p></div>
       <nav class="main-nav" aria-label="Главное меню"><a href="./about.html" data-index="01"><span>ОБО МНЕ</span></a><a href="./now.html" data-index="02"><span>СЕЙЧАС</span></a><a href="./inspiration.html" data-index="03"><span>ВДОХНОВЕНИЕ</span></a><a href="./projects.html" data-index="04"><span>МОИ ПРОЕКТЫ</span></a><a href="./contacts.html" data-index="05"><span>КОНТАКТЫ</span></a></nav>
     </section>
     <footer class="dark-footer"><span>VLAD / THEXILLIX</span><span>PERSONAL WEBSITE</span><span>2026</span></footer>
   </main>
+
+  <section class="conifer-scene" id="coniferCult" aria-label="Хвойный культ" aria-hidden="true">
+    <section class="altar" aria-label="Открыть Хвойный культ">
+      <div class="halo" aria-hidden="true"></div>
+      <button class="tree-button" id="treeButton" type="button" aria-label="Открыть Хвойный культ">
+        <img class="tree-image" src="./assets/conifer-cult-tree-centered.png" alt="Ёлочка">
+      </button>
+    </section>
+    <div class="ritual-origin" aria-hidden="true">
+      <img class="particle needle p1" src="./assets/conifer-cult-needle.png" alt="">
+      <img class="particle needle p2" src="./assets/conifer-cult-needle.png" alt="">
+      <img class="particle needle p3" src="./assets/conifer-cult-needle.png" alt="">
+      <img class="particle needle p4" src="./assets/conifer-cult-needle.png" alt="">
+      <img class="particle twig p5" src="./assets/conifer-cult-twig.png" alt="">
+      <img class="particle twig p6" src="./assets/conifer-cult-twig.png" alt="">
+      <img class="particle cone p7" src="./assets/conifer-cult-cone.png" alt="">
+      <img class="particle cone p8" src="./assets/conifer-cult-cone.png" alt="">
+      <img class="particle cone p9" src="./assets/conifer-cult-cone.png" alt="">
+      <img class="particle cone p10" src="./assets/conifer-cult-cone.png" alt="">
+      <img class="particle branch p11" src="./assets/conifer-cult-branch-sprig.png" alt="">
+      <img class="particle pinecone-large p12" src="./assets/conifer-cult-pinecone-large.png" alt="">
+      <img class="particle branch p13" src="./assets/conifer-cult-branch-long.png" alt="">
+      <img class="particle branch p14" src="./assets/conifer-cult-branch-folded.png" alt="">
+      <img class="particle twig p15" src="./assets/conifer-cult-twig.png" alt="">
+      <img class="particle cone p16" src="./assets/conifer-cult-cone.png" alt="">
+      <img class="particle branch p17" src="./assets/conifer-cult-branch-sprig.png" alt="">
+      <img class="particle pinecone-large p18" src="./assets/conifer-cult-pinecone-large.png" alt="">
+      <img class="particle needle p19" src="./assets/conifer-cult-needle.png" alt="">
+      <img class="particle branch p20" src="./assets/conifer-cult-branch-folded.png" alt="">
+    </div>
+    <div class="title" aria-live="polite"><h1>Хвойный культ</h1></div>
+    <section class="regalia" aria-live="polite">
+      <p class="regalia-lead"><strong>Хвойный культ<br><span>это</span><br>свежий взгляд на жизнь</strong></p>
+      <div class="regalia-divider" aria-hidden="true"></div>
+      <div class="regalia-content">
+        <section class="regalia-section">
+          <blockquote class="regalia-quote"><strong class="quote-opening">Мы не поклоняемся хвое.</strong><br>Она просто напоминает нам, какой должна быть жизнь:<br><strong>свежей, насыщенной, сильной и настоящей.</strong></blockquote>
+          <div class="regalia-focus">
+            <p><strong>Хвойный культ — это способ вытащить себя из автопилота и начать жить полной собственной жизнью.</strong></p>
+            <p>Жизнь не обязана быть бесконечной гонкой, но свободное время не должно превращаться в просмотр чужих жизней в социальных сетях и бесконечный поток быстрого дофамина.</p>
+            <p>Вместо очередного часа в ленте можно погулять в новом месте, заняться спортом, почитать интересные книги, начать учить английский, запустить свой проект, навести порядок дома, наконец-то сделать то, что ты всегда откладывал.</p>
+          </div>
+        </section>
+        <section class="regalia-section">
+          <h3>Наш главный враг — это СТРАХ!</h3>
+          <p>Страх начать, ошибиться, показаться глупым, написать первым, запустить бизнес, выйти в новое место или заняться тем, о чём давно мечтал.</p>
+          <p>Страх часто притворяется ленью, усталостью или фразой: «Начну завтра».</p>
+          <p>Но стоит сделать первый шаг — и мозг понимает, что опасности не было.</p>
+        </section>
+        <section class="regalia-section">
+          <h3>Заповеди</h3>
+          <ol>
+            <li>Начинай до того, как почувствуешь себя готовым.</li>
+            <li>Не проживай чужую жизнь в вертикальной ленте.</li>
+            <li>Меняй фейковый дофамин на настоящий.</li>
+            <li>Каждый день делай хотя бы один шаг к своей цели.</li>
+            <li>Держи в порядке тело, сон и пространство вокруг себя.</li>
+            <li>Не поклоняйся лени. Отдыхай так, чтобы после отдыха хотелось жить.</li>
+            <li>Не жди разрешения стать тем, кем хочешь быть.</li>
+          </ol>
+        </section>
+        <section class="regalia-section">
+          <h3>Вступление</h3>
+          <p><strong>Вступить в Хвойный культ очень просто.</strong></p>
+          <ol>
+            <li>Удалить TikTok или ограничить просмотр вертикального контента десятью минутами в день.</li>
+            <li>Начать делать одно дело, которое ты всегда откладывал.</li>
+            <li>Сделать первый шаг прямо сейчас.</li>
+          </ol>
+        </section>
+        <p class="regalia-closing"><strong>Ты не обязан быть лучше всех,<br>но ты обязан оставаться прежним.</strong><br><br>Если не ты — то кто-то другой.<br>Если не сейчас — то никогда.<br><br><span class="regalia-cta">Выйди из ленты и сделай первый шаг прямо сейчас.</span></p>
+      </div>
+    </section>
+    <button class="back-button" id="backButton" type="button" aria-label="Вернуться к ёлочке">
+      <svg viewBox="0 0 32 24" aria-hidden="true"><path d="M29 12H4M12 4 4 12l8 8"/></svg>
+    </button>
+  </section>
+
   <script src="./app.js"></script>
 </body></html>
