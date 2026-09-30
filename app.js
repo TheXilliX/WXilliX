@@ -31,30 +31,58 @@ if (inspirationTitle && inspirationTitle.textContent.trim() === 'ВДОХНОВ�
   inspirationTitle.classList.add('mobile-split-title');
 }
 
+let introTimer = null;
+
+function resetMenuState() {
+  if (!menu) return;
+  menu.classList.remove('is-transitioning', 'to-milk');
+  menu.querySelectorAll('.is-selected').forEach((item) => item.classList.remove('is-selected'));
+}
+
 function showMenu({ immediate = false } = {}) {
   if (!menu) return;
-  intro?.classList.add('is-skipped');
-  intro?.setAttribute('aria-hidden', 'true');
+  if (introTimer) {
+    window.clearTimeout(introTimer);
+    introTimer = null;
+  }
+
+  resetMenuState();
   menu.classList.add('is-visible');
   menu.setAttribute('aria-hidden', 'false');
-  if (!immediate) {
-    menu.animate(
-      [
-        { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.01)' },
-        { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }
-      ],
-      { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' }
-    );
+
+  if (immediate) {
+    intro?.classList.remove('is-leaving');
+    intro?.classList.add('is-skipped', 'is-finished');
+    intro?.setAttribute('aria-hidden', 'true');
+    return;
   }
+
+  intro?.classList.remove('is-skipped', 'is-finished');
+  intro?.classList.add('is-leaving');
+  intro?.setAttribute('aria-hidden', 'true');
+
+  menu.animate(
+    [
+      { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.01)' },
+      { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }
+    ],
+    { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' }
+  );
+
+  window.setTimeout(() => {
+    intro?.classList.remove('is-leaving');
+    intro?.classList.add('is-finished');
+  }, 520);
 }
 
 if (menu) {
   const skipGateOnce = sessionStorage.getItem('skipGateOnce') === '1';
   if (skipGateOnce) sessionStorage.removeItem('skipGateOnce');
+
   if (location.hash === '#menu' || skipGateOnce) {
     showMenu({ immediate: true });
   } else {
-    window.setTimeout(() => showMenu(), 2000);
+    introTimer = window.setTimeout(() => showMenu(), 3000);
   }
 }
 
@@ -188,7 +216,10 @@ document.querySelectorAll('a').forEach((link) => {
 
 window.addEventListener('pageshow', (event) => {
   document.body.classList.remove('page-is-leaving');
-  if (event.persisted || location.hash === '#menu') showMenu({ immediate: true });
+  const navigationType = performance.getEntriesByType('navigation')[0]?.type;
+  if (event.persisted || navigationType === 'back_forward' || location.hash === '#menu') {
+    showMenu({ immediate: true });
+  }
 });
 
 const coniferScene = document.querySelector('#coniferCult');
