@@ -39,7 +39,7 @@
       isolation: isolate;
       overflow: hidden;
       background-color: var(--milk);
-      background-image: url('./public/rko-background.png');
+      background-image: url('./assets/rko-background.png');
       background-repeat: no-repeat;
       background-position: center top;
       background-size: cover;
@@ -767,4 +767,21 @@
 @media (max-width:800px) {
   .conifer-menu-trigger { width: 36px; height: 36px; margin-left: -6px; }
   .dark-topbar { gap: 10px; }
+}
+
+
+/* Menu alignment: keep the cult trigger directly beside the signature. */
+.dark-topbar {
+  justify-content: flex-start;
+  gap: 14px;
+}
+.dark-topbar > .eyebrow {
+  margin-left: auto;
+}
+.dark-topbar > .menu-clock {
+  margin-left: 20px;
+}
+@media (max-width: 800px) {
+  .dark-topbar { gap: 10px; }
+  .dark-topbar > .menu-clock { margin-left: auto; }
 }
