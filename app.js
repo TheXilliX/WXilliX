@@ -275,6 +275,10 @@ let cultTimers = [];
 let cultCloseTimer = null;
 let cultClickCount = 0;
 
+function clearMenuConePreviews() {
+  document.querySelectorAll('.menu-click-cone').forEach((cone) => cone.remove());
+}
+
 function clearCultTimers() {
   cultTimers.forEach(clearTimeout);
   cultTimers = [];
@@ -331,6 +335,39 @@ function previewConeBurst() {
   }
 }
 
+function previewMenuConeBurst() {
+  if (!coniferMenuTrigger) return;
+  const rect = coniferMenuTrigger.getBoundingClientRect();
+  const originX = rect.left + rect.width / 2;
+  const originY = rect.top + rect.height / 2;
+  const countByClick = [2, 3, 4, 5];
+  const count = countByClick[Math.min(cultClickCount - 1, countByClick.length - 1)];
+  const vectors = [
+    { x: -42, y: -34, size: 30, rotation: -28 },
+    { x: 82, y: -38, size: 46, rotation: 24 },
+    { x: -54, y: 76, size: 34, rotation: -18 },
+    { x: 124, y: 88, size: 28, rotation: 20 },
+    { x: 22, y: 132, size: 50, rotation: 38 }
+  ];
+
+  for (let i = 0; i < count; i += 1) {
+    const cone = document.createElement('img');
+    const vector = vectors[(cultClickCount + i - 1) % vectors.length];
+    cone.className = 'menu-click-cone';
+    cone.src = cultConeAsset;
+    cone.alt = '';
+    cone.setAttribute('aria-hidden', 'true');
+    cone.style.left = `${originX}px`;
+    cone.style.top = `${originY}px`;
+    cone.style.setProperty('--x', `${vector.x + ((cultClickCount * 7 + i * 5) % 18)}px`);
+    cone.style.setProperty('--y', `${vector.y + ((cultClickCount * 5 + i * 7) % 16)}px`);
+    cone.style.setProperty('--size', `${vector.size + ((cultClickCount + i) % 3) * 7}px`);
+    cone.style.setProperty('--rotation', `${vector.rotation + cultClickCount * 6}deg`);
+    document.body.appendChild(cone);
+    window.setTimeout(() => cone.remove(), 620);
+  }
+}
+
 function prepareConiferOpen() {
   if (!coniferScene) return;
   clearCultTimers();
@@ -382,6 +419,20 @@ function handleConiferClick() {
   startFullConiferRitual();
 }
 
+function handleMenuConiferClick() {
+  if (!coniferScene || !cultTreeButton) return;
+
+  cultClickCount += 1;
+  if (cultClickCount < 5) {
+    previewMenuConeBurst();
+    return;
+  }
+
+  clearMenuConePreviews();
+  prepareConiferOpen();
+  startFullConiferRitual();
+}
+
 function closeConiferCult() {
   if (!coniferScene) return;
   clearCultTimers();
@@ -400,7 +451,7 @@ function closeConiferCult() {
 coniferMenuTrigger?.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
-  handleConiferClick();
+  handleMenuConiferClick();
 });
 
 cultTreeButton?.addEventListener('click', (event) => {

@@ -907,6 +907,24 @@
     transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(.82) rotate(var(--rotation, 0deg));
   }
 }
+
+/* Menu previews live above the menu itself and use the button's real
+   viewport coordinates as their origin. */
+.menu-click-cone {
+  position: fixed;
+  z-index: 240;
+  left: 0;
+  top: 0;
+  width: var(--size, 44px);
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(.18) rotate(0deg);
+  transform-origin: center;
+  animation: clickConeBurst .62s cubic-bezier(.22, 1, .36, 1) both;
+  filter: drop-shadow(0 5px 5px rgba(23, 57, 42, .22));
+}
+
 .conifer-scene .ritual-origin {
   contain: layout;
   overflow: visible;
