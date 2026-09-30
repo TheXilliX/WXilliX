@@ -250,16 +250,7 @@ function clearConePreviews() {
 function resetConiferVisualState() {
   clearCultTimers();
   clearConePreviews();
-  coniferScene?.classList.remove(
-    'is-closing',
-    'is-open',
-    'is-green',
-    'is-regalia-content',
-    'is-regalia',
-    'is-flight',
-    'is-title',
-    'is-awake'
-  );
+  coniferScene?.classList.remove('is-closing', 'is-open', 'is-green', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
   if (coniferScene) {
     coniferScene.style.removeProperty('opacity');
     coniferScene.style.removeProperty('filter');
@@ -289,10 +280,10 @@ function previewConeBurst() {
     cone.src = cultConeAsset;
     cone.alt = '';
     cone.setAttribute('aria-hidden', 'true');
-    cone.style.setProperty('--x', `${vector.x + ((cultClickCount * 13 + i * 9) % 26)}px`);
-    cone.style.setProperty('--y', `${vector.y + ((cultClickCount * 7 + i * 11) % 24)}px`);
-    cone.style.setProperty('--size', `${vector.size + ((cultClickCount + i) % 3) * 8}px`);
-    cone.style.setProperty('--rotation', `${vector.rotation + cultClickCount * 7}deg`);
+    cone.style.setProperty('--x', String(vector.x + ((cultClickCount * 13 + i * 9) % 26)) + 'px');
+    cone.style.setProperty('--y', String(vector.y + ((cultClickCount * 7 + i * 11) % 24)) + 'px');
+    cone.style.setProperty('--size', String(vector.size + ((cultClickCount + i) % 3) * 8) + 'px');
+    cone.style.setProperty('--rotation', String(vector.rotation + cultClickCount * 7) + 'deg');
     cultOrigin.appendChild(cone);
     window.setTimeout(() => cone.remove(), 760);
   }
@@ -302,16 +293,7 @@ function prepareConiferOpen() {
   if (!coniferScene) return;
   clearCultTimers();
   clearConePreviews();
-  coniferScene.classList.remove(
-    'is-closing',
-    'is-open',
-    'is-green',
-    'is-regalia-content',
-    'is-regalia',
-    'is-flight',
-    'is-title',
-    'is-awake'
-  );
+  coniferScene.classList.remove('is-closing', 'is-open', 'is-green', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
   coniferScene.style.removeProperty('opacity');
   coniferScene.style.removeProperty('filter');
   coniferScene.style.removeProperty('transform');
@@ -330,18 +312,15 @@ function startFullConiferRitual() {
     cultTreeButton.classList.remove('is-pressing');
     coniferScene.classList.add('is-awake', 'is-flight');
 
-    // The particle flight runs first. Green fill and the first title begin 0.5s later.
     cultTimers.push(window.setTimeout(() => {
       coniferScene.classList.add('is-green', 'is-title');
     }, 500));
 
-    // The first title fades while the full lead appears at the exact same moment.
     cultTimers.push(window.setTimeout(() => {
       coniferScene.classList.remove('is-title');
       coniferScene.classList.add('is-regalia');
     }, 2000));
 
-    // The lead remains centered for 2.5s before moving upward and revealing the text.
     cultTimers.push(window.setTimeout(() => {
       coniferScene.classList.add('is-regalia-content');
     }, 4500));
@@ -368,7 +347,7 @@ function closeConiferCult() {
   coniferScene.classList.add('is-closing');
   coniferScene.style.opacity = '0';
   coniferScene.style.filter = 'blur(16px)';
-  coniferScene.style.transform = 'scale(1.015');
+  coniferScene.style.transform = 'scale(1.015)';
 
   cultCloseTimer = window.setTimeout(() => {
     resetConiferVisualState();

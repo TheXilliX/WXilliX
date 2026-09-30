@@ -959,3 +959,102 @@
   .p19 { --x: 38vw; --y: 20vh; }
   .p20 { --x: 87vw; --y: 53vh; }
 }
+
+
+/* v22 ritual: the menu icon is the origin of the burst and previews. */
+:root {
+  --ritual-origin-left: clamp(86px, 8vw, 112px);
+  --ritual-origin-top: clamp(14px, 2.2vw, 24px);
+}
+.altar,
+.ritual-origin {
+  left: var(--ritual-origin-left);
+  left: max(var(--ritual-origin-left), env(safe-area-inset-left));
+  top: var(--ritual-origin-top);
+  top: max(var(--ritual-origin-top), env(safe-area-inset-top));
+  bottom: auto;
+}
+.conifer-scene.is-awake::after { opacity: 0; }
+.conifer-scene.is-green::after { opacity: 1; }
+
+.click-cone {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width: var(--size, 44px);
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(.18) rotate(0deg);
+  transform-origin: center;
+  animation: clickConeBurst .68s cubic-bezier(.22, 1, .36, 1) both;
+  filter: drop-shadow(0 5px 5px rgba(23, 57, 42, .22));
+}
+@keyframes clickConeBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.18) rotate(0deg);
+  }
+  18% { opacity: .95; }
+  66% { opacity: .9; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(.82) rotate(var(--rotation, 0deg));
+  }
+}
+.conifer-scene .ritual-origin {
+  contain: layout;
+  overflow: visible;
+}
+@media (max-width: 650px) {
+  :root {
+    --ritual-origin-left: 72px;
+    --ritual-origin-top: 12px;
+  }
+}
+
+/* Full-screen destinations, kept mostly at the edges so the copy stays readable. */
+.p1 { --x: 12vw; --y: 12vh; }
+.p2 { --x: 84vw; --y: 18vh; }
+.p3 { --x: 76vw; --y: 34vh; }
+.p4 { --x: 88vw; --y: 72vh; }
+.p5 { --x: 18vw; --y: 80vh; }
+.p6 { --x: 10vw; --y: 60vh; }
+.p7 { --x: 78vw; --y: 48vh; }
+.p8 { --x: 84vw; --y: 10vh; }
+.p9 { --x: 26vw; --y: 28vh; }
+.p10 { --x: 80vw; --y: 86vh; }
+.p11 { --x: 12vw; --y: 82vh; }
+.p12 { --x: 72vw; --y: 26vh; }
+.p13 { --x: 24vw; --y: 72vh; }
+.p14 { --x: 68vw; --y: 84vh; }
+.p15 { --x: 34vw; --y: 86vh; }
+.p16 { --x: 20vw; --y: 44vh; }
+.p17 { --x: 70vw; --y: 62vh; }
+.p18 { --x: 58vw; --y: 14vh; }
+.p19 { --x: 42vw; --y: 20vh; }
+.p20 { --x: 92vw; --y: 54vh; }
+
+@media (max-width: 650px) {
+  .p1 { --x: 14vw; --y: 13vh; }
+  .p2 { --x: 78vw; --y: 16vh; }
+  .p3 { --x: 73vw; --y: 31vh; }
+  .p4 { --x: 82vw; --y: 70vh; }
+  .p5 { --x: 15vw; --y: 78vh; }
+  .p6 { --x: 10vw; --y: 56vh; }
+  .p7 { --x: 72vw; --y: 47vh; }
+  .p8 { --x: 80vw; --y: 9vh; }
+  .p9 { --x: 24vw; --y: 28vh; }
+  .p10 { --x: 77vw; --y: 84vh; }
+  .p11 { --x: 12vw; --y: 80vh; }
+  .p12 { --x: 67vw; --y: 25vh; }
+  .p13 { --x: 22vw; --y: 70vh; }
+  .p14 { --x: 64vw; --y: 82vh; }
+  .p15 { --x: 31vw; --y: 84vh; }
+  .p16 { --x: 18vw; --y: 43vh; }
+  .p17 { --x: 66vw; --y: 60vh; }
+  .p18 { --x: 55vw; --y: 13vh; }
+  .p19 { --x: 38vw; --y: 20vh; }
+  .p20 { --x: 87vw; --y: 53vh; }
+}
