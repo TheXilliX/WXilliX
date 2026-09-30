@@ -237,6 +237,9 @@ function clearCultTimers() {
 function openConiferCult() {
   if (!coniferScene || !cultTreeButton) return;
   clearCultTimers();
+  coniferScene.style.removeProperty('opacity');
+  coniferScene.style.removeProperty('filter');
+  coniferScene.style.removeProperty('transform');
   coniferScene.classList.remove('is-closing');
   coniferScene.classList.add('is-open');
   coniferScene.setAttribute('aria-hidden', 'false');
@@ -257,10 +260,18 @@ function closeConiferCult() {
   if (!coniferScene) return;
   clearCultTimers();
   coniferScene.classList.add('is-closing');
+  window.requestAnimationFrame(() => {
+    coniferScene.style.opacity = '0';
+    coniferScene.style.filter = 'blur(16px)';
+    coniferScene.style.transform = 'scale(1.015)';
+  });
   cultTimers.push(setTimeout(() => {
     coniferScene.classList.remove('is-closing', 'is-open', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
+    coniferScene.style.removeProperty('opacity');
+    coniferScene.style.removeProperty('filter');
+    coniferScene.style.removeProperty('transform');
     coniferScene.setAttribute('aria-hidden', 'true');
-  }, 700));
+  }, 800));
 }
 
 coniferMenuTrigger?.addEventListener('click', (event) => {
