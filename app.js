@@ -227,8 +227,11 @@ const coniferMenuTrigger = document.querySelector('#coniferMenuTrigger');
 const cultTreeButton = document.querySelector('#treeButton');
 const cultBackButton = document.querySelector('#backButton');
 const cultRegalia = coniferScene?.querySelector('.regalia');
+const cultOrigin = coniferScene?.querySelector('.ritual-origin');
+const cultConeAsset = coniferScene?.querySelector('.particle.cone')?.getAttribute('src') || './assets/conifer-cult-cone.png';
 let cultTimers = [];
 let cultCloseTimer = null;
+let cultClickCount = 0;
 
 function clearCultTimers() {
   cultTimers.forEach(clearTimeout);
@@ -240,43 +243,135 @@ function clearCultTimers() {
   cultTreeButton?.classList.remove('is-pressing');
 }
 
-function openConiferCult() {
-  if (!coniferScene || !cultTreeButton) return;
+function clearConePreviews() {
+  cultOrigin?.querySelectorAll('.click-cone').forEach((cone) => cone.remove());
+}
+
+function resetConiferVisualState() {
   clearCultTimers();
+  clearConePreviews();
+  coniferScene?.classList.remove(
+    'is-closing',
+    'is-open',
+    'is-green',
+    'is-regalia-content',
+    'is-regalia',
+    'is-flight',
+    'is-title',
+    'is-awake'
+  );
+  if (coniferScene) {
+    coniferScene.style.removeProperty('opacity');
+    coniferScene.style.removeProperty('filter');
+    coniferScene.style.removeProperty('transform');
+    coniferScene.setAttribute('aria-hidden', 'true');
+  }
+  if (cultRegalia) cultRegalia.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  cultClickCount = 0;
+}
+
+function previewConeBurst() {
+  if (!cultOrigin) return;
+  const countByClick = [2, 3, 4, 5];
+  const count = countByClick[Math.min(cultClickCount - 1, countByClick.length - 1)];
+  const vectors = [
+    { x: 68, y: 52, size: 34, rotation: -32 },
+    { x: 128, y: 96, size: 52, rotation: 28 },
+    { x: 206, y: 22, size: 42, rotation: 18 },
+    { x: 270, y: 132, size: 30, rotation: -22 },
+    { x: 164, y: 190, size: 58, rotation: 42 }
+  ];
+
+  for (let i = 0; i < count; i += 1) {
+    const cone = document.createElement('img');
+    const vector = vectors[(cultClickCount + i - 1) % vectors.length];
+    cone.className = 'click-cone';
+    cone.src = cultConeAsset;
+    cone.alt = '';
+    cone.setAttribute('aria-hidden', 'true');
+    cone.style.setProperty('--x', `${vector.x + ((cultClickCount * 13 + i * 9) % 26)}px`);
+    cone.style.setProperty('--y', `${vector.y + ((cultClickCount * 7 + i * 11) % 24)}px`);
+    cone.style.setProperty('--size', `${vector.size + ((cultClickCount + i) % 3) * 8}px`);
+    cone.style.setProperty('--rotation', `${vector.rotation + cultClickCount * 7}deg`);
+    cultOrigin.appendChild(cone);
+    window.setTimeout(() => cone.remove(), 760);
+  }
+}
+
+function prepareConiferOpen() {
+  if (!coniferScene) return;
+  clearCultTimers();
+  clearConePreviews();
+  coniferScene.classList.remove(
+    'is-closing',
+    'is-open',
+    'is-green',
+    'is-regalia-content',
+    'is-regalia',
+    'is-flight',
+    'is-title',
+    'is-awake'
+  );
   coniferScene.style.removeProperty('opacity');
   coniferScene.style.removeProperty('filter');
   coniferScene.style.removeProperty('transform');
-  coniferScene.classList.remove('is-closing', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
   if (cultRegalia) cultRegalia.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   coniferScene.classList.add('is-open');
   coniferScene.setAttribute('aria-hidden', 'false');
+  cultClickCount = 0;
+}
+
+function startFullConiferRitual() {
+  if (!coniferScene || !cultTreeButton) return;
+  clearConePreviews();
   cultTreeButton.classList.add('is-pressing');
-  cultTimers.push(setTimeout(() => {
+
+  cultTimers.push(window.setTimeout(() => {
     cultTreeButton.classList.remove('is-pressing');
     coniferScene.classList.add('is-awake', 'is-flight');
-    cultTimers.push(setTimeout(() => coniferScene.classList.add('is-title'), 360));
-    cultTimers.push(setTimeout(() => {
+
+    // The particle flight runs first. Green fill and the first title begin 0.5s later.
+    cultTimers.push(window.setTimeout(() => {
+      coniferScene.classList.add('is-green', 'is-title');
+    }, 500));
+
+    // The first title fades while the full lead appears at the exact same moment.
+    cultTimers.push(window.setTimeout(() => {
       coniferScene.classList.remove('is-title');
       coniferScene.classList.add('is-regalia');
-    }, 1600));
-    cultTimers.push(setTimeout(() => coniferScene.classList.add('is-regalia-content'), 2050));
+    }, 2000));
+
+    // The lead remains centered for 2.5s before moving upward and revealing the text.
+    cultTimers.push(window.setTimeout(() => {
+      coniferScene.classList.add('is-regalia-content');
+    }, 4500));
   }, 140));
+}
+
+function handleConiferClick() {
+  if (!coniferScene || !cultTreeButton) return;
+  if (!coniferScene.classList.contains('is-open')) prepareConiferOpen();
+  if (coniferScene.classList.contains('is-awake')) return;
+
+  cultClickCount += 1;
+  if (cultClickCount < 5) {
+    previewConeBurst();
+    return;
+  }
+  startFullConiferRitual();
 }
 
 function closeConiferCult() {
   if (!coniferScene) return;
   clearCultTimers();
+  clearConePreviews();
   coniferScene.classList.add('is-closing');
   coniferScene.style.opacity = '0';
   coniferScene.style.filter = 'blur(16px)';
-  coniferScene.style.transform = 'scale(1.015)';
+  coniferScene.style.transform = 'scale(1.015');
+
   cultCloseTimer = window.setTimeout(() => {
-    coniferScene.classList.remove('is-closing', 'is-open', 'is-regalia-content', 'is-regalia', 'is-flight', 'is-title', 'is-awake');
-    coniferScene.style.removeProperty('opacity');
-    coniferScene.style.removeProperty('filter');
-    coniferScene.style.removeProperty('transform');
-    coniferScene.setAttribute('aria-hidden', 'true');
-    if (cultRegalia) cultRegalia.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    resetConiferVisualState();
     cultCloseTimer = null;
   }, 780);
 }
@@ -284,13 +379,15 @@ function closeConiferCult() {
 coniferMenuTrigger?.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
-  openConiferCult();
+  handleConiferClick();
 });
+
 cultTreeButton?.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
-  openConiferCult();
+  handleConiferClick();
 });
+
 cultBackButton?.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
