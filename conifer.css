@@ -38,7 +38,9 @@
       height: 100dvh;
       isolation: isolate;
       overflow: hidden;
-      background-color: var(--milk);
+      /* The overlay opens over the menu, so it must not flash to a blank
+         milk page before the first cone burst appears. */
+      background-color: var(--graphite-2, #1d1d1d);
       /* Keep the cult scene independent from the old RKO course artwork. */
       background-image: none;
       background-repeat: no-repeat;
