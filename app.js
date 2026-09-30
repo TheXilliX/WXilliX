@@ -1,6 +1,4 @@
 const intro = document.getElementById('intro');
-const gate = document.getElementById('passwordScreen');
-const passwordInput = document.getElementById('sitePassword');
 const menu = document.getElementById('menuScreen');
 
 const mobilePolish = document.createElement('style');
@@ -26,9 +24,6 @@ button:focus:not(:focus-visible),a:focus:not(:focus-visible){outline:none}
 }
 `;
 document.head.appendChild(mobilePolish);
-
-const gateHint = document.querySelector('.gate-hint');
-if (gateHint) gateHint.textContent = 'DATE OF BIRTH / NO ENTER';
 
 const inspirationTitle = document.querySelector('.inspiration-head h1');
 if (inspirationTitle && inspirationTitle.textContent.trim() === 'ВДОХНОВЕНИЕ') {
@@ -224,7 +219,7 @@ function openConiferCult() {
       coniferScene.classList.add('is-regalia');
     }, 1250));
     cultTimers.push(setTimeout(() => coniferScene.classList.add('is-regalia-content'), 2050));
-  }, 140);
+  }, 140));
 }
 
 function closeConiferCult() {
