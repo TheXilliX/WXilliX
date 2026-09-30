@@ -814,3 +814,49 @@
 .conifer-scene .regalia-lead {
   text-shadow: 0 1px 0 rgba(23, 57, 42, .22), 0 0 12px rgba(184, 243, 201, .18);
 }
+
+
+/* v21 polish: centered index and full-screen particle release. */
+.dark-topbar {
+  position: relative;
+  justify-content: flex-start;
+}
+.dark-topbar > .eyebrow {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.dark-topbar > .menu-clock {
+  margin-left: auto;
+}
+.ritual-origin {
+  contain: layout;
+  overflow: visible;
+}
+.ritual-origin .particle {
+  pointer-events: none;
+}
+.conifer-scene .regalia,
+.conifer-scene .regalia-lead,
+.conifer-scene .regalia-content,
+.conifer-scene .regalia-section,
+.conifer-scene .regalia-section h3,
+.conifer-scene .regalia-section p,
+.conifer-scene .regalia-section li,
+.conifer-scene .regalia-quote {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+.conifer-scene.is-regalia .regalia,
+.conifer-scene.is-regalia .regalia-lead,
+.conifer-scene.is-regalia-content .regalia-content {
+  filter: blur(0);
+}
+@media (max-width: 800px) {
+  .dark-topbar > .eyebrow {
+    position: static;
+    transform: none;
+  }
+}

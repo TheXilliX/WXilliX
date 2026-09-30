@@ -82,7 +82,7 @@ if (menu) {
   if (location.hash === '#menu' || skipGateOnce) {
     showMenu({ immediate: true });
   } else {
-    introTimer = window.setTimeout(() => showMenu(), 3000);
+    introTimer = window.setTimeout(() => showMenu(), 1500);
   }
 }
 
